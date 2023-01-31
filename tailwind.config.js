@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'homeBG': "url('../src/assets/background.jpg')",
+      },
       width: {
         150: "150px",
         190: "190px",
