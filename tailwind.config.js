@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'homeBG': "url('../src/assets/background.jpg')",
+        'registerBG': "url('../src/assets/blurred-hands.jpg')"
       },
       width: {
         150: "150px",
@@ -57,6 +58,8 @@ module.exports = {
         cardOverlay: "rgba(256,256,256,0.4)",
         lighttextGray: "#9ca0ab",
         card: "rgba(256,256,256,0.8)",
+        bgLogin1: "#9F7AEA",
+        bgLogin2: "#FEE2FE"
       },
     },
   },

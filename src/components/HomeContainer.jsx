@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Background from '../assets/background.jpg'
+import { Authorized } from '../views/Authorized'
 
 const HomeContainer = () => {
     return (
@@ -17,6 +18,13 @@ const HomeContainer = () => {
                     >
                         Welcome to Allmanos
                     </motion.h2>
+                    <motion.p 
+                        className='text-purple-700 font-extrabold text-[3.5rem]]'
+                        initial='hidden'
+                        whileInView='show'
+                    >
+                        Revolutionizing the way neighbors serve their communities
+                    </motion.p>
                 </div>
             </section>
 
@@ -25,9 +33,9 @@ const HomeContainer = () => {
                     <p className='text-purple-400 items-center justify-center text-[2.5rem] lg:text-[3.5rem] font-bold tracking-wide'>Welcome to Allmanos</p>
                     <p className='text-purple-400 items-center justify-center font-bold tracking-wide'>Revolutionizing the way neighbors serve one another</p>
                 </div>
-                <div className='w-full h-full lg:px-19 gap-8 flex flex-col items-center justify-center border border-black bg-purple-600'>
-                    <button className='p-4 bg-slate-50 rounded-xl m-4' type='button'>Request a Service</button>
-                    <button className='p-4 m-4 bg-slate-50 rounded-xl' type='button'>Help a Neighbor</button>
+                <div className='w-full h-full lg:px-19 gap-8 flex flex-col items-center justify-center border border-black bg-gradient-to-r from-purple-600 to-transparent'>
+                        <button className='p-4 rounded-xl m-4' type='button'>Request a Service</button>
+                        <button className='p-4 m-4 bg-slate-50 rounded-xl' type='button'>Help a Neighbor</button>
                 </div>
             </section>
         </>
