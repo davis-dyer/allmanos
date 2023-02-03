@@ -6,6 +6,9 @@ import HomeContainer from '../components/HomeContainer';
 import Communities from '../pages/Communities'
 import About from '../pages/About'
 import Profile from '../pages/Profile'
+import MapsContainer from '../components/MapsContainer'
+import MainContainer from '../components/MainContainer'
+import CreateRequest from '../pages/CreateRequest';
 
 const UserViews = () => {
   return (
@@ -15,10 +18,11 @@ const UserViews = () => {
           <div className="">
             <main className="mt-14 md:mt-20 px-4 md:px-12 py-4 w-full">
               <Routes>
-                <Route path="/*" element={<HomeContainer />} />
+                <Route path="/*" element={<MainContainer />} />
                 <Route path="/communities" element={<Communities />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/create-request" element={<CreateRequest />} />
               </Routes>
             </main>
           </div>
