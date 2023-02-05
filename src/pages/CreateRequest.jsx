@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 const CreateRequest = () => {
 
+    const localAllmanosUser = localStorage.getItem("allmanos_user")
+    const allmanosUserObject = JSON.parse(localAllmanosUser)
+    
     const [event, setEvent] = useState({
+        requesterId: allmanosUserObject.id,
         title: "",
         desc: "",
         zipCode: 0,
@@ -59,7 +63,8 @@ const CreateRequest = () => {
     }
 
 
-    const newServiceEvent = () => {
+    const newServiceEvent = (click) => {
+        click.preventDefault()
         return fetch('http://localhost:8088/event', {
             method: "POST",
             headers: {
@@ -67,31 +72,12 @@ const CreateRequest = () => {
             },
             body: JSON.stringify(event)
         })
-        /* .then(res => res.json())
-        .then(createdEvent => {
-            setEvent(createdEvent)
-            navigate("/service")
-        }) */
+            .then(res => res.json())
+            .then(() => {
+                window.alert("Your request is being dispatched to your community")
+            })
     }
 
-    const handleEvent = () => {
-        return fetch(`http://localhost:8088/event`, {
-            method: "POST",
-            header: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(event)
-        }) 
-        /* return fetch(`http://localhost:8088/event`)
-            .then(res => res.json())
-            .then(response => {
-                if ((!response.title || !response.desc || !response.zipCode || !response.neighborhood || !response.category)) {
-                    window.alert("Please fill out the required fields")
-                } else {
-                    newServiceEvent()
-                }
-            }) */
-    }
 
     const updateEvent = (evt) => {
         const copy = { ...event }
@@ -131,14 +117,14 @@ const CreateRequest = () => {
                     <div className="w-full lg:w-1/2 py-16 px-12">
                         <h2 className='text-3xl mb-4'>Request</h2>
                         <p className="mb-4">Enter the details below</p>
-                        <form className="" onSubmit={handleEvent}>
+                        <form className="">
                             <fieldset className="mt-5">
                                 <label htmlFor="">Service Title</label>
                                 <input type="text" id='title' placeholder='Car Trouble' onChange={updateEvent} className='border border-gray-400 py-1 px-2 w-full' required />
                             </fieldset>
                             <fieldset className='mt-5'>
                                 <label htmlFor="">Service Details</label>
-                                <textarea id='details' rows={3} cols={3} placeholder='I could use assistance from a neighbor who has experience working on cars...' onChange={updateEvent} className='border border-gray-400 py-1 px-2 w-full' required />
+                                <textarea id='desc' rows={3} cols={3} placeholder='I could use assistance from a neighbor who has experience working on cars...' onChange={updateEvent} className='border border-gray-400 py-1 px-2 w-full' required />
                             </fieldset>
                             <fieldset className='mt-5'>
                                 <label htmlFor="">Zip Code</label>
@@ -177,7 +163,7 @@ const CreateRequest = () => {
                                 <label htmlFor="" className="category">Category</label>
                                 <select
                                     type=""
-                                    id='categories'
+                                    id='category'
                                     key={categories.id}
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
@@ -192,25 +178,29 @@ const CreateRequest = () => {
                             </fieldset>
                             <fieldset className='mt-5'>
                                 <p className="urgent">Is this an <span className='text-purple-900'>urgent request?</span></p>
-                                <input 
-                                    type="checkbox" 
-                                    className='border border-gray-400' 
+                                <input
+                                    type="checkbox"
+                                    className='border border-gray-400'
                                     id="urgent"
                                     /* checked={checkHandler} */
-                                    onChange={updateEvent} 
+                                    onChange={updateEvent}
                                 />
                                 <span className='px-1'>Yes</span>
-                                <input 
-                                    type="checkbox" 
-                                    className='border border-gray-400' 
+                                <input
+                                    type="checkbox"
+                                    className='border border-gray-400'
                                     id="urgent"
                                     /* checked={checkHandler} */
-                                    onChange={updateEvent} 
+                                    onChange={updateEvent}
                                 />
                                 <span className='px-1'>No</span>
                             </fieldset>
                             <fieldset className='mt-5'>
-                                <button type='submit' className='w-full bg-purple-500 py-3 text-center text-white'>Create Request</button>
+                                <button
+                                    type='submit'
+                                    className='w-full bg-purple-500 py-3 text-center text-white'
+                                    onClick={(clickEvent) => newServiceEvent(clickEvent)}
+                                >Create Request</button>
                             </fieldset>
                         </form>
                     </div>
