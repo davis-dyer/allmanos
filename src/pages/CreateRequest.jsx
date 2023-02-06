@@ -5,6 +5,8 @@ const CreateRequest = () => {
 
     const localAllmanosUser = localStorage.getItem("allmanos_user")
     const allmanosUserObject = JSON.parse(localAllmanosUser)
+
+    const datetime = new Date()
     
     const [event, setEvent] = useState({
         requesterId: allmanosUserObject.id,
@@ -13,7 +15,8 @@ const CreateRequest = () => {
         zipCode: 0,
         neighborhood: "",
         category: "",
-        urgent: null
+        urgent: null,
+        timestamp: datetime
     })
 
     const [categories, setCategories] = useState([])
