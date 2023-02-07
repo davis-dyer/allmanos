@@ -46,7 +46,12 @@ const HomeContainer = () => {
                     <div className="">
                         <p className="text-center">Start your journey with Allmanos today</p>
                     </div>
-                    <button className='p-4 m-4 bg-purple-900 text-white rounded-xl' type='button'>Serve Your Community</button>
+                    <button 
+                        className='p-4 m-4 bg-purple-900 text-white rounded-xl' type='button'
+                        onClick={() => {
+                            navigate('/service')
+                        }}
+                    >Serve Your Community</button>
                 </div>
             </section>
 
@@ -59,7 +64,7 @@ const HomeContainer = () => {
                         className='p-4 rounded-xl bg-purple-900 m-4 text-white' 
                         type='button'
                         onClick={() => {
-                            navigate('/create-request')
+                            navigate('/service')
                         }}
                     >Request a Service</button>
                 </div>

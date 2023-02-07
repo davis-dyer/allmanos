@@ -1,112 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 
-const CreateRequest = () => {
-
+const CreateCommunity = () => {
+    
     const localAllmanosUser = localStorage.getItem("allmanos_user")
     const allmanosUserObject = JSON.parse(localAllmanosUser)
 
     const datetime = new Date()
-    
-    const [event, setEvent] = useState({
-        requesterId: allmanosUserObject.id,
-        title: "",
+
+    const [community, setCommunity] = useState({
+        creatorId: allmanosUserObject.id,
+        memberId: [],
+        nickname: "",
         desc: "",
         zipCode: 0,
-        neighborhood: "",
-        category: "",
-        urgent: null,
-        timestamp: datetime
+        neighborhoodId: "",
+        timestamp: datetime.toDateString()
     })
-
-    const [categories, setCategories] = useState([])
-    const [location, setLocation] = useState([])
-    const [matchedLocation, setMatchedLocation] = useState([])
-    const [urgent, setUrgent] = useState(false)
-
-    let navigate = useNavigate()
-
-    useEffect(
-        () => {
-            fetch('http://localhost:8088/category')
-                .then(res => res.json())
-                .then((place) => {
-                    setCategories(place)
-                })
-        },
-        []
-    )
-
-
-    useEffect(
-        () => {
-            fetch('http://localhost:8088/location')
-                .then(res => res.json())
-                .then((locationArray) => {
-                    setLocation(locationArray)
-                })
-        },
-        []
-    )
-
-    useEffect(
-        () => {
-            if (matchedLocation) {
-                const zipNeigh = location.filter(place =>
-                    place.zipCode === event.zipCode
-                )
-                setMatchedLocation(zipNeigh)
-            }
-        },
-        [event]
-    )
-
-    const checkHandler = () => {
-        setUrgent(!urgent)
-    }
-
-
-    const newServiceEvent = (click) => {
-        click.preventDefault()
-        return fetch('http://localhost:8088/event', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(event)
-        })
-            .then(res => res.json())
-            .then(() => {
-                window.alert("Your request is being dispatched to your community")
-            })
-    }
 
 
     const updateEvent = (evt) => {
-        const copy = { ...event }
+        const copy = { ...community }
         copy[evt.target.id] = evt.target.value
-        setEvent(copy)
+        setCommunity(copy)
     }
-
-    /* const updateZip = (evt) => {
-        /* const copy = { ...event }
-        copy[evt.target.id] = evt.target.value
-        const {name, value} = evt.target;
-
-        setEvent((prevState) => ({...prevState, [name] : value,}))
-    } */
-
-    /* const updateLocation = (evt) => {
-        location.filter(
-            (place) => {
-                setMatchedLocation(place.zipCode = evt.target.value)
-            }
-        )
-    } */
-
-
-
-
+    
+    
     return (
         <div className='min-h-screen py-20'>
             <div className="container mx-auto">
@@ -138,7 +56,6 @@ const CreateRequest = () => {
                                     onChange={
                                         (evt) => {
                                             updateEvent(evt)
-                                            /* updateLocation(evt) */
                                         }}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 />
@@ -148,18 +65,18 @@ const CreateRequest = () => {
                                 <select
                                     type='text'
                                     id='neighborhood'
-                                    value={matchedLocation.id}
+                                    /* value={matchedLocation.id} */
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 >
-                                    <option key='0' value='0'>Select a neighborhood...</option>
+                                    {/* <option key='0' value='0'>Select a neighborhood...</option>
                                     {
                                         matchedLocation.map(
                                             (item) => {
                                                 return (<option key={item.id} value={item.id}>{item.neighborhood}</option>)
                                             }
                                         )
-                                    }
+                                    } */}
                                 </select>
                             </fieldset>
                             <fieldset className='mt-5'>
@@ -167,16 +84,16 @@ const CreateRequest = () => {
                                 <select
                                     type=""
                                     id='category'
-                                    key={categories.id}
+                                    /* key={categories.id} */
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 >
                                     <option id='0'>Select a category...</option>
-                                    {
+                                    {/* {
                                         categories.map((cato) => {
                                             return (<option id={cato.id} value={cato.id}>{cato.type}</option>)
                                         })
-                                    }
+                                    } */}
                                 </select>
                             </fieldset>
                             <fieldset className='mt-5'>
@@ -202,7 +119,7 @@ const CreateRequest = () => {
                                 <button
                                     type='submit'
                                     className='w-full bg-purple-500 py-3 text-center text-white'
-                                    onClick={(clickEvent) => newServiceEvent(clickEvent)}
+                                    /* onClick={(clickEvent) => newServiceEvent(clickEvent)} */
                                 >Create Request</button>
                             </fieldset>
                         </form>
@@ -213,4 +130,4 @@ const CreateRequest = () => {
     )
 }
 
-export default CreateRequest
+export default CreateCommunity

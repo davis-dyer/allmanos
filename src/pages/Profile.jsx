@@ -18,7 +18,8 @@ const Profile = () => {
   })
 
   const [user, setUserInfo] = useState([])
-  const [requests, setUserRequest] = useState({})
+  const [requests, setUserRequest] = useState([])
+  const [location, setEventLocation] = useState([])
   const [userFiltered, setUserFiltered] = useState([])
   const [statusMsg, setStatusMsg] = useState("")
 
@@ -29,7 +30,7 @@ const Profile = () => {
 
   useEffect(
     () => {
-      fetch(`http://localhost:8088/users`)
+      fetch(`http://localhost:8088/users?id=${allmanosUserObject.id}`)
         .then(res => res.json())
         .then(
             (userData) => {
@@ -39,6 +40,14 @@ const Profile = () => {
     },
     []
   )
+
+  /* useEffect(
+    () => {
+
+    }
+  ) */
+
+
   useEffect(
     () => {
       fetch(`http://localhost:8088/event`)
@@ -54,9 +63,22 @@ const Profile = () => {
 
   useEffect(
     () => {
-      getEvents()
+      fetch(`http://localhost:8088/location`)
+        .then(res => res.json())
+        .then(
+            (userData) => {
+              setEventLocation(userData)
+            }
+        )
     },
     []
+  )
+
+  useEffect(
+    () => {
+      getEvents()
+    },
+    [requests]
   )
 
   const getEvents = () => {
@@ -67,7 +89,15 @@ const Profile = () => {
               setUserFiltered(userData)
             }
         )
-    }
+  }
+
+  /* useEffect(
+    () => {
+        const [neigh] = location.find(evt => evt.id === userFiltered.neighborhoodId)
+        setUserFiltered({...neigh})
+    },
+    [userFiltered]
+  ) */
 
 
   const deleteRequest = (id) => {
@@ -97,7 +127,7 @@ const Profile = () => {
                 <>
                   <div className='m-2 flex-col'>
                     <h2 className='text-[2.5rem] font-bold p-2'>{person.firstName} {person.lastName}</h2>
-                    <p>{person.zipCode}</p>
+                    <p>Zip Code: {person.zipCode}</p>
                   </div>
                 </>
               )
@@ -112,20 +142,23 @@ const Profile = () => {
               return (
               <>
                 <div className='p-4 border border-black flex flex-col lg:flex-row mx-10 md:mx-20 my-5 rounded-xl'>
-                  <img src={Event1} alt="requested event" className='w-full lg:w-1/2' />
-                  <div className="">
-                    <p className='flex flex-row justify-between font-semibold text-gray-500'>{evt.category} {evt.timestamp}</p>
-                    <h2 className='text-[1.5rem]'>{evt.title}</h2>
+                  <img src={Event1} alt="requested event" className='w-full lg:w-1/2 rounded-xl' />
+                  <div className="mx-4 flex flex-col justify-between">
+                    <div>
+                      <h2 className='text-[1.5rem]'>{evt.title}</h2>
+                    </div>
                     <p>{evt.desc}</p>
-
-                  </div>
-                  <button
-                    className='border border-black w-12 h-12 text-red-600'
-                    onClick={() => {deleteRequest(evt.id)}}
-                  >
-                    Delete
-                    <BsThreeDots />
-                  </button>
+                    <div className='flex justify-between'>
+                      <p className='font-semibold text-gray-500 '>{evt.timestamp}</p>
+                      <button
+                        className='border border-black rounded-lg p-2 text-red-600 flex justify-end items-end'
+                        onClick={() => {deleteRequest(evt.id)}}
+                        >
+                        Delete
+                        <BsThreeDots />
+                      </button>
+                      </div>
+                    </div>
                 </div>
               </>
               )
