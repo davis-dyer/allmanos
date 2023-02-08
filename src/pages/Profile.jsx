@@ -41,11 +41,6 @@ const Profile = () => {
     []
   )
 
-  /* useEffect(
-    () => {
-
-    }
-  ) */
 
 
   useEffect(
@@ -90,14 +85,6 @@ const Profile = () => {
             }
         )
   }
-
-  /* useEffect(
-    () => {
-        const [neigh] = location.find(evt => evt.id === userFiltered.neighborhoodId)
-        setUserFiltered({...neigh})
-    },
-    [userFiltered]
-  ) */
 
 
   const deleteRequest = (id) => {

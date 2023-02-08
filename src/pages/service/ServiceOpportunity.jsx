@@ -8,6 +8,10 @@ const ServiceOpportunity = () => {
   const [requests, setUserRequest] = useState([])
   const [filtReq, setFilteredReq] = useState([])
 
+  const [selectedEvent, setSelectedEvent] = useState({
+    completed: false
+  })
+
   const localAllmanosUser = localStorage.getItem('allmanos_user')
   const allmanosUserObject = JSON.parse(localAllmanosUser)
   const navigate = useNavigate()
@@ -20,9 +24,9 @@ const ServiceOpportunity = () => {
       fetch(`http://localhost:8088/event`)
         .then(res => res.json())
         .then(
-            (userData) => {
-              setUserRequest(userData)
-            }
+          (userData) => {
+            setUserRequest(userData)
+          }
         )
     },
     []
@@ -38,38 +42,37 @@ const ServiceOpportunity = () => {
     [requests]
   )
 
-  
+
 
 
   return (
     <section className="mt-20">
-        <h2 className='text-[2.25rem]'>Service Requested</h2>
-          {
-            filtReq
-              .map((list) => {
-                return(
-                  <>
-                    <div key={list.id} className='p-4 border border-black flex flex-col lg:flex-row mx-10 md:mx-20 my-5 rounded-xl'>
-                      <img src={Event1} alt="requested event" className='w-full lg:w-1/2 rounded-xl' />
-                      <div className="mx-4 flex flex-col justify-between">
-                        <div>
-                          <h2 className='text-[1.5rem]'>{list.title}</h2>
-                        </div>
-                        <p>{list.desc}</p>
-                        <div className='flex justify-between'>
-                          <p className='font-semibold text-gray-500 '>{list.timestamp}</p>
-                          </div>
-                      </div>
-                      <button
-                        className='border border-black bg-green-400 mt-4'
-                        //onclick we need to add the ID to the user who is serving
-                      >Serve Now!</button>
+      <h2 className='text-[2.25rem]'>Service Requested</h2>
+      {
+        filtReq
+          .map((list) => {
+            return (
+              <>
+                <div key={list.id} className='p-4 border border-black flex flex-col lg:flex-row mx-10 md:mx-20 my-5 rounded-xl'>
+                  <img src={Event1} alt="requested event" className='w-full lg:w-1/2 rounded-xl' />
+                  <div className="mx-4 flex flex-col justify-between">
+                    <div>
+                      <h2 className='text-[1.5rem]'>{list.title}</h2>
                     </div>
-                  </>
-                )
-              })
-          }
-      </section>
+                    <p>{list.desc}</p>
+                    <div className='flex justify-between'>
+                      <p className='font-semibold text-gray-500 '>{list.timestamp}</p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )
+          })
+      }
+      <button
+        className='border border-black bg-green-400 mt-4'
+      >Serve Now!</button>
+    </section>
   )
 }
 

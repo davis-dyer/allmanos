@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import ServiceList from './ServiceList'
 
 const CreateRequest = () => {
 
@@ -17,7 +18,6 @@ const CreateRequest = () => {
         categoryId: "",
         urgent: null,
         active: false,
-        completed: false,
         timestamp: datetime.toDateString()
     })
 
@@ -26,7 +26,8 @@ const CreateRequest = () => {
     const [matchedLocation, setMatchedLocation] = useState([])
     const [urgent, setUrgent] = useState(false)
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
+
 
     useEffect(
         () => {
@@ -63,14 +64,10 @@ const CreateRequest = () => {
         [event]
     )
 
-    const checkHandler = () => {
-        setUrgent(!urgent)
-    }
-
 
     const newServiceEvent = (click) => {
         click.preventDefault()
-        return fetch('http://localhost:8088/event', {
+        fetch('http://localhost:8088/event', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -79,7 +76,7 @@ const CreateRequest = () => {
         })
             .then(res => res.json())
             .then(() => {
-                window.alert("Your request is being dispatched to your community")
+                window.location.reload(false)
             })
     }
 
@@ -89,28 +86,6 @@ const CreateRequest = () => {
         copy[evt.target.id] = evt.target.value
         setEvent(copy)
     }
-
-    const updateNeighborhood = (evt) => {
-        const copy = {...event}
-        copy[evt.target.neighborhood] = evt.target.value
-        setEvent(copy)
-    }
-
-    /* const updateZip = (evt) => {
-        /* const copy = { ...event }
-        copy[evt.target.id] = evt.target.value
-        const {name, value} = evt.target;
-
-        setEvent((prevState) => ({...prevState, [name] : value,}))
-    } */
-
-    /* const updateLocation = (evt) => {
-        location.filter(
-            (place) => {
-                setMatchedLocation(place.zipCode = evt.target.value)
-            }
-        )
-    } */
 
 
 
