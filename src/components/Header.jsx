@@ -11,29 +11,6 @@ import { MdLogout } from 'react-icons/md'
 
 const Header = () => {
 
-
-    //Stretch -- Google Sign In
-    /*const [{user}, dispatch] = useStateValue();
- 
-     const [isMenu, setIsMenu] = useState(false)
- 
-     const login = async () => {
-         if (!user) {
-             const {
-                 user:
-             }
-         }
-         const logout = () => {
-             setIsMenu(false)
-             localStorage.clear()
-     
-             dispatch({
-                 type: actionType.SET_USER,
-                 user: null,
-             });
-         }
-     } */
-
     const [isMenu, setIsMenu] = useState(false)
 
     const navigate = useNavigate()

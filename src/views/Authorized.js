@@ -7,8 +7,7 @@ export const Authorized = ({children}) => {
     if (localStorage.getItem('allmanos_user')) {
         return children
     } else {
-        return 
-            <Navigate
+        return <Navigate
                 to={`/login/${location.search}`}
                 replace
                 state={{location}}
