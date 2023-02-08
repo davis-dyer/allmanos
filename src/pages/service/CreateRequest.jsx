@@ -26,7 +26,6 @@ const CreateRequest = () => {
     const [matchedLocation, setMatchedLocation] = useState([])
     const [urgent, setUrgent] = useState(false)
 
-    const navigate = useNavigate()
 
 
     useEffect(
