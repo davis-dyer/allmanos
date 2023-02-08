@@ -16,6 +16,8 @@ const CreateRequest = () => {
         neighborhoodId: "",
         categoryId: "",
         urgent: null,
+        active: false,
+        completed: false,
         timestamp: datetime.toDateString()
     })
 
