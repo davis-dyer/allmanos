@@ -26,6 +26,8 @@ const Register = () => {
             .then(createdUser => {
                 localStorage.setItem('allmanos_user', JSON.stringify({
                     id: createdUser.id,
+                    firstName: createdUser.firstName,
+                    lastName: createdUser.lastName,
                     user: createdUser.isUser
                 }))
 

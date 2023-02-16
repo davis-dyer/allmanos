@@ -10,6 +10,7 @@ import CreateRequest from '../pages/service/CreateRequest';
 import CreateCommunity from '../pages/communities/CreateCommunity';
 import ServiceContainer from '../pages/service/ServiceContainer';
 import ServiceOpportunity from '../pages/service/ServiceOpportunity';
+import CommunityProfile from '../pages/communities/CommunityProfile';
 
 const UserViews = () => {
   return (
@@ -26,6 +27,7 @@ const UserViews = () => {
                 <Route path="/service" element={<ServiceContainer />} />
                 <Route path="/service/:id" element={<ServiceOpportunity />} />
                 <Route path="/create-community" element={<CreateCommunity />} />
+                <Route path="/communities/:id" element={<CommunityProfile />} />
               </Routes>
             </main>
           </div>

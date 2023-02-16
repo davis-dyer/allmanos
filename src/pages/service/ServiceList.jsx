@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import React, { useEffect, useMemo, useState } from 'react'
+import { BsFilterCircle } from 'react-icons/bs'
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import ServiceCard from './ServiceCard'
 
-const ServiceList = () => {
+const ServiceList = ({ searchTermState }) => {
 
     const [events, setEvents] = useState([])
     const [location, setEventLocation] = useState([])
-    const [neighbor, setNeighborhood] = useState([])
-    const [eventAdded, setEventAdded] = useState([])
+    const [filteredEvents, setFiltered] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState()
+    const [scrollValue, setScrollValue] = useState(0);
 
     useEffect(
         () => {
@@ -20,6 +25,8 @@ const ServiceList = () => {
         },
         []
     )
+
+
     useEffect(
         () => {
             fetch('http://localhost:8088/location')
@@ -33,40 +40,112 @@ const ServiceList = () => {
         []
     )
 
+    useEffect(() => {}, [scrollValue])
+
+
+    const getFilteredByCategory = () => {
+      if (!selectedCategory) {
+        return events
+      }
+      return events.filter((item) => 
+        item.neighborhood === selectedCategory
+      )
+    }
+
+    const filteredList = useMemo(getFilteredByCategory, [selectedCategory, events])
+
+    const handleNeighborhoodChange = (evt) => {
+      setSelectedCategory(evt.target.value)
+    }
+
+    /* useEffect(
+        () => {
+            const searchedEvent = events.filter(evt => {
+                return evt.zipCode.startsWith(searchTermState)
+            })
+            setFiltered(searchedEvent)
+        },
+        [searchTermState]
+    ) */
+
 
 
     return (
+        <>          
+          <section>
+            <div className='flex justify-between'>
+              <div className='flex'>
+                <BsFilterCircle className='mt-3'/>
+                <select
+                  className='mt-2 w-1/4 ml-2'
+                  name='neighborhood-list'
+                  id='neighborhood-list'
+                  onChange={handleNeighborhoodChange}
+                >
+                  <option value='' key=''>All</option>
+                  {location.map((place) => (
+                    <option value={place.neighborhood} key={place.id}>{place.neighborhood}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="hidden md:flex gap-3 items-center">
+                <motion.div
+                  whileTap={{ scale: 0.75 }}
+                  className="w-8 h-8 rounded-lg bg-purple-300 hover:bg-purple-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
+                  onClick={() => setScrollValue(-200)}
+                >
+                  <MdChevronLeft className="text-lg text-white" />
+                </motion.div>
+                <motion.div
+                  whileTap={{ scale: 0.75 }}
+                  className="w-8 h-8 rounded-lg bg-purple-300 hover:bg-purple-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
+                  onClick={() => setScrollValue(200)}
+                >
+                  <MdChevronRight className="text-lg text-white" />
+                </motion.div>
+              </div>
+            </div>
+          </section>
+    
+          <section className='w-full my-6'>
+            <ServiceCard
+              scrollValue={scrollValue}
+              flag={true}
+              data={filteredList}
+            />
+          </section>
+    
+        </>
+      )
+
+    /* return (
         <section className='mt-10'>
-            <h2>Service Opportunities</h2>
-            <div>
-                {
-                    events.map(
-                        (item) => {
-                            return (
-                                item.active ? (
-                                        <p>no requests</p>
-                                ) : (
-                                    <>
-                                        <div className="flex">
-                                            <ol key={item.id} className="p-2">
-                                                <li>{item.title}</li>
-                                                <li>{item.zipCode}</li>
-                                                <Link to={`/service/${item.id}`}>
-                                                    <button
-                                                        className='border border-black bg-gray-200'
-                                                    >See Details</button>
-                                                </Link>
-                                            </ol>
-                                        </div>
-                                    </>
-                                )
+            <div className='grid grid-cols-2 md:grid-cols-3'>
+                {filteredEvents.map(
+                    (item) => {
+                        return (
+                            item.active ? (
+                                <></>
+                            ) : (
+                                <>
+                                    <div className="m-2 flex flex-col justify-center items-center p-4">
+                                        <ol key={item.id} className="p-4 border border-black rounded-xl">
+                                            <li className=''>{item.title}</li>
+                                            <li>{item.zipCode}</li>
+                                            <Link to={`/service/${item.id}`}>
+                                                <button
+                                                    className='mt-2 p-1 border border-black bg-slate-100 rounded-lg'
+                                                >See Details</button>
+                                            </Link>
+                                        </ol>
+                                    </div>
+                                </>
                             )
-                        }
-                    )
-                }
+                        )
+                    })}
             </div>
         </section>
-    )
+    ) */
 }
 
 export default ServiceList

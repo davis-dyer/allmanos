@@ -3,10 +3,13 @@ import HomeContainer from './HomeContainer'
 import MapsContainer from './MapsContainer'
 
 const MainContainer = () => {
+
   return (
     <div className='w-full h-auto flex flex-col items-center justify-center'>
-        <HomeContainer />
       <section>
+        <HomeContainer />
+      </section>
+      <section className='mt-10 w-full h-full'>
         <MapsContainer />
       </section>
 

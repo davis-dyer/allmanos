@@ -7,15 +7,13 @@ const ServiceOpportunity = () => {
   const [user, setUserInfo] = useState([])
   const [requests, setUserRequest] = useState([])
   const [filtReq, setFilteredReq] = useState([])
+  const [activeChange, setActiveChange] = useState([])
 
-  const [selectedEvent, setSelectedEvent] = useState({
-    completed: false
-  })
 
-  const localAllmanosUser = localStorage.getItem('allmanos_user')
-  const allmanosUserObject = JSON.parse(localAllmanosUser)
-  const navigate = useNavigate()
+
   let eventId = useParams()
+
+  const {newId} = useParams()
 
 
 
@@ -42,7 +40,23 @@ const ServiceOpportunity = () => {
     [requests]
   )
 
+/////////////
 
+
+  const handleEventSave = (evt, data) => {
+    evt.preventDefault()
+    fetch(`http://localhost:8088/event/${data.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(() => {
+        window.location.reload(false)
+      })
+  }
 
 
   return (
@@ -64,14 +78,18 @@ const ServiceOpportunity = () => {
                       <p className='font-semibold text-gray-500 '>{list.timestamp}</p>
                     </div>
                   </div>
+                <button
+                  className='border border-black bg-green-400 mt-4'
+                  key={list.active}
+                  onClick={(click) => {
+                    list.active = true
+                    handleEventSave(click, list)}}
+                >Serve Now!</button>
                 </div>
               </>
             )
           })
-      }
-      <button
-        className='border border-black bg-green-400 mt-4'
-      >Serve Now!</button>
+        }
     </section>
   )
 }

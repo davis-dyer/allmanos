@@ -35,3 +35,12 @@ code {
 html, body {
   scroll-behavior: smooth;
 }
+
+div.map-container {
+  height: 50vh;
+  width: 100%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  display: block;
+}
