@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 
 const CommunitySearch = ({setterFunction}) => {
   return (
@@ -7,16 +7,19 @@ const CommunitySearch = ({setterFunction}) => {
             <h2 className='text-[2.5rem] p-4'>Search for Your Community</h2>
             <input
                 className='mt-4'
-                placeholder='Enter search terms'
+                placeholder='Search Communities'
                 onChange={
                   (changeEvent) => {
                     setterFunction(changeEvent.target.value)
                   }
                 }
             />
+            <button
+                className='ml-2 p-1 rounded-xl border border-black bg-purple-500 text-white'
+            >Search</button>
         </div>
     </article>
   )
 }
 
-export default CommunitySearch
+export default CommunitySearch */

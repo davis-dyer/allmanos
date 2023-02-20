@@ -14,10 +14,15 @@ const CreateRequest = () => {
         title: "",
         desc: "",
         zipCode: 0,
-        neighborhoodId: "",
-        categoryId: "",
-        urgent: null,
+        neighborhood: "",
+        category: "",
         active: false,
+        volunteerId: [
+            {
+                id: 0,
+                userId: null
+            }
+        ],
         timestamp: datetime.toDateString()
     })
 
@@ -87,6 +92,18 @@ const CreateRequest = () => {
         setEvent(copy)
     }
 
+    const updateEventB = (evt) => {
+        const copy = { ...event }
+        copy[evt.target.id] = evt.target.checked
+        setEvent(copy)
+    }
+
+    const updateEventC = (evt) => {
+        const copy = { ...event }
+        copy[evt.target.id] = evt.target.checked
+        setEvent(copy)
+    }
+
 
 
 
@@ -121,7 +138,6 @@ const CreateRequest = () => {
                                     onChange={
                                         (evt) => {
                                             updateEvent(evt)
-                                            /* updateLocation(evt) */
                                         }}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 />
@@ -129,9 +145,7 @@ const CreateRequest = () => {
                             <fieldset className='mt-5'>
                                 <label htmlFor="">Neighborhood</label>
                                 <select
-                                    type='text'
-                                    id='neighborhoodId'
-                                    value={matchedLocation.id}
+                                    id='neighborhood'
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 >
@@ -139,7 +153,7 @@ const CreateRequest = () => {
                                     {
                                         matchedLocation.map(
                                             (item) => {
-                                                return (<option key={item.id} value={item.id}>{item.neighborhood}</option>)
+                                                return (<option key={item.id} value={item.neighborhood}>{item.neighborhood}</option>)
                                             }
                                         )
                                     }
@@ -148,16 +162,14 @@ const CreateRequest = () => {
                             <fieldset className='mt-5'>
                                 <label htmlFor="" className="category">Category</label>
                                 <select
-                                    type=""
-                                    id='categoryId'
-                                    key={categories.id}
+                                    id='category'
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 >
-                                    <option id='0'>Select a category...</option>
+                                    <option key='0' value='0'>Select a category...</option>
                                     {
                                         categories.map((cato) => {
-                                            return (<option id={cato.id} value={cato.id}>{cato.type}</option>)
+                                            return (<option key={cato.id} value={cato.type}>{cato.type}</option>)
                                         })
                                     }
                                 </select>
@@ -168,16 +180,14 @@ const CreateRequest = () => {
                                     type="checkbox"
                                     className='border border-gray-400'
                                     id="urgent"
-                                    /* checked={checkHandler} */
-                                    onChange={updateEvent}
+                                    onChange={updateEventB}
                                 />
                                 <span className='px-1'>Yes</span>
                                 <input
                                     type="checkbox"
                                     className='border border-gray-400'
-                                    id="urgent"
-                                    /* checked={checkHandler} */
-                                    onChange={updateEvent}
+                                    id="non-urgent"
+                                    onChange={updateEventC}
                                 />
                                 <span className='px-1'>No</span>
                             </fieldset>

@@ -108,18 +108,28 @@ const Header = () => {
                             className='w-40 bg-gray-50 showdow-xl rounded-lg flex flex-col absolute top-12 right-0'
                         >
                             <ul className='flex flex-col'>
-                                <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
-                                    onClick={() => setIsMenu(false)}
-                                >Service</li>
-                                <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
-                                    onClick={() => setIsMenu(false)}
-                                >Communities</li>
-                                <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
-                                    onClick={() => setIsMenu(false)}
-                                >About</li>
-                                <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
-                                    onClick={() => setIsMenu(false)}
-                                >Profile</li>
+                                <Link to={'/service'}>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
+                                        onClick={() => setIsMenu(false)}
+                                    >Service</li>
+                                </Link>
+                                <Link to={'/communities'}>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
+                                        onClick={() => setIsMenu(false)}
+                                    >Communities</li>
+                                </Link>
+                                <Link to={'/about'}>
+                                    <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
+                                        onClick={() => setIsMenu(false)}
+                                    >About</li>
+                                </Link>
+                                {allmanosUserObject && (
+                                    <Link to={'profile'}>
+                                        <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer  hover:bg-slate-100 px-4 py-2'
+                                            onClick={() => setIsMenu(false)}
+                                        >Profile</li>
+                                    </Link>
+                                )}
                             </ul>
                             <Link to=''
                                 className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'

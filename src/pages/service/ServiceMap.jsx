@@ -1,13 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useLoadScript, GoogleMap, Marker, InfoWindow } from '@react-google-maps/api'
 import { Audio } from 'react-loader-spinner'
-import "../index.css"
-import { useNavigate } from 'react-router-dom'
+import "../../index.css"
 
 
-const MapsContainer = () => {
-
-  const navigate = useNavigate()
+const ServiceMap = () => {
 
   const {isLoaded} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
@@ -54,20 +51,13 @@ const MapsContainer = () => {
   //const center = useMemo(() => ({lat: 36.174465, lng: -86.767960}), [])
 
   return (
-      <section className="grid grid-cols-1 m-4">
+    <>
+      <section className='my-10'>
         <h2 className='text-3xl font-semibold capitalize text-headingColor relative before:absolute before:round-lg before:content before:w-20 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-purple-400 to-purple-600 transition-all ease-in-out duration-100'>
-          Find a Community Near You
+              Service Opportunity Near You
         </h2>
-        <div className="mt-4 p-4 text-left flex items-center justify-between">
-          <div>
-            <h2>Enter Your Zip Code</h2>
-            <input type="text" placeholder='zip...' className="zip" />
-          </div>
-          <button
-            className='rounded-lg text-white p-2 bg-gradient-to-tr from-purple-400 to-purple-600 transition-all ease-in-out duration-100'
-            onClick={() => navigate('/communities')}
-          >See Communities</button>
-        </div>
+      </section>
+      <section className="grid grid-cols-1 m-4">
         <div className="w-full h-full">
           {!isLoaded ? (
             <Audio height="80" width='80' radius="9" color='green' ariaLabel='loading!' />
@@ -102,7 +92,8 @@ const MapsContainer = () => {
           )}
         </div>
       </section>
+    </>
   )
 }
 
-export default MapsContainer
+export default ServiceMap
