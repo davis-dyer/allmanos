@@ -15,10 +15,14 @@ const CreateRequest = () => {
         desc: "",
         zipCode: 0,
         neighborhood: "",
-        category: [
-            {}
-        ],
+        category: "",
         active: false,
+        volunteerId: [
+            {
+                id: 0,
+                userId: null
+            }
+        ],
         timestamp: datetime.toDateString()
     })
 
@@ -141,7 +145,7 @@ const CreateRequest = () => {
                             <fieldset className='mt-5'>
                                 <label htmlFor="">Neighborhood</label>
                                 <select
-                                    id='neighborhoodId'
+                                    id='neighborhood'
                                     onChange={updateEvent}
                                     className='border border-gray-400 py-1 px-2 w-full' required
                                 >

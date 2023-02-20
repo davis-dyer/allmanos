@@ -3,7 +3,7 @@ import Avatar from '../../assets/avatar.png'
 import {BsThreeDots} from 'react-icons/bs'
 import Event1 from '../../assets/request-event.jpg'
 import { motion } from 'framer-motion'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const CommunityProfile = () => {
 
@@ -18,6 +18,7 @@ const CommunityProfile = () => {
   })
 
   const [community, setCommunityInfo] = useState([])
+  const [filtComm, setFiltComm] = useState([])
   const [requests, setUserRequest] = useState([])
   const [location, setEventLocation] = useState([])
   const [userFiltered, setUserFiltered] = useState([])
@@ -30,7 +31,7 @@ const CommunityProfile = () => {
 
   useEffect(
     () => {
-      fetch(`http://localhost:8088/community?memberId=${allmanosUserObject.id}`)
+      fetch(`http://localhost:8088/communities`)
         .then(res => res.json())
         .then(
             (userData) => {
@@ -67,6 +68,18 @@ const CommunityProfile = () => {
         )
     },
     []
+  )
+
+  let eventId = useParams()
+
+  useEffect(
+    () => {
+      const newComm = community.filter(list => {
+        return list.id === parseInt(eventId.id)
+      })
+      setFiltComm(newComm)
+    },
+    [community]
   )
 
   useEffect(
@@ -109,12 +122,12 @@ const CommunityProfile = () => {
         <div className='flex lg:flex-row lg:justify-start lg:items-start flex-col justify-center items-center'>
           <img src={Avatar} alt="profile picture" className='lg:w-32 w-24' />
           {
-            community.map(person => {
+            filtComm.map(place => {
               return (
                 <>
                   <div className='m-2 flex-col'>
-                    <h2 className='text-[2.5rem] font-bold p-2'>{person.firstName} {person.lastName}</h2>
-                    <p>Zip Code: {person.zipCode}</p>
+                    <h2 className='text-[2.5rem] font-bold p-2'>{place.nickname}</h2>
+                    <p>Zip Code: {place.zipCode}</p>
                   </div>
                 </>
               )
@@ -123,7 +136,7 @@ const CommunityProfile = () => {
         </div>
       </section>
       <section className="mt-20">
-        <h2 className='text-[2.25rem]'>Service Requested</h2>
+        <h2 className='text-[2.25rem]'>Community Events</h2>
           {
             userFiltered.map(evt => {
               return (

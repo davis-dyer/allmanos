@@ -117,35 +117,6 @@ const ServiceList = ({ searchTermState }) => {
     
         </>
       )
-
-    /* return (
-        <section className='mt-10'>
-            <div className='grid grid-cols-2 md:grid-cols-3'>
-                {filteredEvents.map(
-                    (item) => {
-                        return (
-                            item.active ? (
-                                <></>
-                            ) : (
-                                <>
-                                    <div className="m-2 flex flex-col justify-center items-center p-4">
-                                        <ol key={item.id} className="p-4 border border-black rounded-xl">
-                                            <li className=''>{item.title}</li>
-                                            <li>{item.zipCode}</li>
-                                            <Link to={`/service/${item.id}`}>
-                                                <button
-                                                    className='mt-2 p-1 border border-black bg-slate-100 rounded-lg'
-                                                >See Details</button>
-                                            </Link>
-                                        </ol>
-                                    </div>
-                                </>
-                            )
-                        )
-                    })}
-            </div>
-        </section>
-    ) */
 }
 
 export default ServiceList

@@ -3,7 +3,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from '../components/Header';
 import CommunityContainer from '../pages/communities/CommunityContainer'
-import About from '../pages/About'
+import About from '../pages/about/About'
 import Profile from '../pages/Profile'
 import MainContainer from '../components/MainContainer'
 import CreateRequest from '../pages/service/CreateRequest';
